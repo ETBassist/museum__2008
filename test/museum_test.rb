@@ -84,4 +84,17 @@ class MuseumTest < MiniTest::Test
     end
     assert_nil @dmns.draw_lottery_winner(@gems_and_minerals)
   end
+
+  def test_can_announce_lottery_winner
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+    @dmns.admit(@patron_1)
+    @dmns.admit(@patron_2)
+    @dmns.admit(@patron_3)
+    @dmns.stub :draw_lottery_winner, @patron_1.name do
+      assert_equal "Bob has won the IMAX exhibit lottery", @dmns.announce_lottery_winner(@imax)
+    end
+    assert_equal "No winners for this lottery", @dmns.announce_lottery_winner(@gems_and_minerals)
+  end
 end
