@@ -71,4 +71,14 @@ class MuseumTest < MiniTest::Test
     @dmns.admit(@patron_3)
     assert_equal [@patron_1, @patron_3], @dmns.ticket_lottery_contestents(@dead_sea_scrolls)
   end
+
+  def test_it_can_draw_a_lottery_winner
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+    @dmns.admit(@patron_1)
+    @dmns.admit(@patron_2)
+    @dmns.admit(@patron_3)
+    assert_equal "Bob", @dmns.draw_lottery_winner(@dead_sea_scrolls)
+  end
 end
