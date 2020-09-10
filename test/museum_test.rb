@@ -97,4 +97,26 @@ class MuseumTest < MiniTest::Test
     end
     assert_equal "No winners for this lottery", @dmns.announce_lottery_winner(@gems_and_minerals)
   end
+
+  def test_museum_gets_revenue_from_attendees
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
+    tj = Patron.new("TJ", 7)
+    tj.add_interest("IMAX")
+    tj.add_interest("Dead Sea Scrolls")
+    bob = Patron.new("Bob", 10)
+    bob.add_interest("Dead Sea Scrolls")
+    bob.add_interest("IMAX")
+    morgan = Patron.new("Morgan", 15)
+    morgan.add_interest("Gems and Minerals")
+    morgan.add_interest("Dead Sea Scrolls")
+    @dmns.admit(tj)
+    @dmns.admit(bob)
+    @dmns.admit(morgan)
+    assert_equal 5, morgan.spending_money
+    assert_equal 0, bob.spending_money
+    assert_equal 7, tj.spending_money
+    assert_equal 20, @dmns.revenue
+  end
 end
