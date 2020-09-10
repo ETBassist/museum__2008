@@ -38,4 +38,9 @@ class Museum
       patron.spending_money < exhibit.cost
     end
   end
+
+  def draw_lottery_winner(exhibit)
+    winner = ticket_lottery_contestents(exhibit).sample
+    winner.name if !winner.nil?
+  end
 end

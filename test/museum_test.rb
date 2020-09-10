@@ -79,6 +79,9 @@ class MuseumTest < MiniTest::Test
     @dmns.admit(@patron_1)
     @dmns.admit(@patron_2)
     @dmns.admit(@patron_3)
-    assert_equal "Bob", @dmns.draw_lottery_winner(@dead_sea_scrolls)
+    @dmns.stub :draw_lottery_winner, @patron_1.name do
+      assert_equal "Bob", @dmns.draw_lottery_winner(@dead_sea_scrolls)
+    end
+    assert_nil @dmns.draw_lottery_winner(@gems_and_minerals)
   end
 end
