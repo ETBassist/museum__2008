@@ -118,5 +118,11 @@ class MuseumTest < MiniTest::Test
     assert_equal 0, bob.spending_money
     assert_equal 7, tj.spending_money
     assert_equal 20, @dmns.revenue
+    expected = {
+                @gems_and_minerals => [morgan],
+                @dead_sea_scrolls => [bob, morgan],
+                @imax => []
+                }
+    assert_equal expected, @dmns.patrons_of_exhibits
   end
 end
