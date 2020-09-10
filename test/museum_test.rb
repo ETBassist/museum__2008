@@ -11,4 +11,9 @@ class MuseumTest < MiniTest::Test
   def test_it_exists
     assert_instance_of Museum, @dmns
   end
+
+  def test_it_can_get_exhibits
+    assert_equal "Denver Museum of Nature and Science", @dmns.name
+    assert_equal [], @dmns.exhibits
+  end
 end
