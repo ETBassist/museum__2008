@@ -12,6 +12,7 @@ class MuseumTest < MiniTest::Test
     @patron_2 = Patron.new("Sally", 20)
     @patron_2.add_interest("IMAX")
     @patron_3 = Patron.new("Johnny", 5)
+    @patron_3.add_interest("Dead Sea Scrolls")
   end
 
   def test_it_exists
@@ -47,6 +48,9 @@ class MuseumTest < MiniTest::Test
   end
 
   def test_it_can_give_patrons_by_exhibit_interest
+    @dmns.add_exhibit(@gems_and_minerals)
+    @dmns.add_exhibit(@dead_sea_scrolls)
+    @dmns.add_exhibit(@imax)
     @dmns.admit(@patron_1)
     @dmns.admit(@patron_2)
     @dmns.admit(@patron_3)
